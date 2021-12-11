@@ -6,7 +6,7 @@ import { API_URL } from './config';
 import { UserContext } from './context/user.context';
 import { ErrorContext } from './context/error.context';
 
-import NavigationBar from './components/NavigationBar';
+import NavigationBar from './components/Navbar/NavigationBar';
 import SignIn from './components/Auth/SignIn';
 import SignUp from './components/Auth/SignUp';
 import LoadingComponent from './components/Loading';

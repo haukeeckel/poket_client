@@ -32,7 +32,10 @@ function UserMenuML(props) {
         <Menu as="div" className="ml-3 relative">
           <div>
             {/* PICTURE BUTTON  */}
-            <Menu.Button className="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <Menu.Button className="bg-white rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              <span className="text-lg text-gray-900 font-medium px-5">
+                {user.username}
+              </span>
               <span className="sr-only">Open user menu</span>
               <img
                 className="h-8 w-8 rounded-full"
@@ -56,7 +59,7 @@ function UserMenuML(props) {
               <Menu.Item>
                 {({ active }) => (
                   <Link
-                    to="#"
+                    to="/user"
                     className={classNames(
                       active ? 'bg-gray-100' : '',
                       'block px-4 py-2 text-sm text-gray-700'
@@ -81,15 +84,16 @@ function UserMenuML(props) {
               </Menu.Item>
               <Menu.Item>
                 {({ active }) => (
-                  <p
+                  <Link
                     className={classNames(
                       active ? 'bg-gray-100' : '',
                       'block px-4 py-2 text-sm text-gray-700'
                     )}
+                    to="/"
                     onClick={logout}
                   >
                     Sign out
-                  </p>
+                  </Link>
                 )}
               </Menu.Item>
             </Menu.Items>

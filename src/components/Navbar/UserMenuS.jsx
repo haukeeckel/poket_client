@@ -24,10 +24,10 @@ function UserMenuS(props) {
             </div>
             <div className="ml-3">
               <div className="text-base font-medium text-gray-800">
-                Username
+                {user.username}
               </div>
               <div className="text-sm font-medium text-gray-500">
-                user@email.com
+                {user.email}
               </div>
             </div>
             {/* BUTTON */}
@@ -43,13 +43,15 @@ function UserMenuS(props) {
           </div>
           <div className="mt-3 space-y-1">
             <Disclosure.Button className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">
-              <Link to="/">Your Profile</Link>
+              <Link to="/user">Your Profile</Link>
             </Disclosure.Button>
             <Disclosure.Button className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">
               <Link to="/">Settings</Link>
             </Disclosure.Button>
             <Disclosure.Button className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">
-              <p onClick={logout}>Sign out</p>
+              <Link to="/" onClick={logout}>
+                Sign out
+              </Link>
             </Disclosure.Button>
           </div>
         </div>

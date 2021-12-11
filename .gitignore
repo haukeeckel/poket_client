@@ -20,7 +20,6 @@
 .env
 
 src/config.js
-src/components/UserProfile
 
 npm-debug.log*
 yarn-debug.log*

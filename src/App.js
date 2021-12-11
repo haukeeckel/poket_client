@@ -103,6 +103,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/signin" element={<SignIn onSubmit={handleSignIn} />} />
         <Route path="/signup" element={<SignUp onSubmit={handleSignUp} />} />
+        <Route path="/user" element={<UserProfile />} />
       </Routes>
     </div>
   );

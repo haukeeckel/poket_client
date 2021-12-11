@@ -97,21 +97,19 @@ function UserMenuML(props) {
         </Menu>
       ) : (
         <>
-          <Link to="/signup" onClick={() => setErrors(null)}>
-            <button
-              type="button"
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-3"
-            >
-              Sign Up
-            </button>
+          <Link
+            to="/signup"
+            onClick={() => setErrors(null)}
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-3"
+          >
+            Sign up
           </Link>
-          <Link to="/signin" onClick={() => setErrors(null)}>
-            <button
-              type="button"
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ml-3"
-            >
-              Sign in
-            </button>
+          <Link
+            to="/signin"
+            onClick={() => setErrors(null)}
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ml-3"
+          >
+            Sign in
           </Link>
         </>
       )}

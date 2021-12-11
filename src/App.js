@@ -10,6 +10,7 @@ import NavigationBar from './components/Navbar/NavigationBar';
 import SignIn from './components/Auth/SignIn';
 import SignUp from './components/Auth/SignUp';
 import LoadingComponent from './components/Loading';
+import LandingPage from './components/LandingPage/LandingPage';
 
 function App() {
   const { setUser } = useContext(UserContext);
@@ -87,8 +88,9 @@ function App() {
   return (
     <div>
       <NavigationBar logout={handleLogout} />
+
       <Routes>
-        <Route path="/" />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/signin" element={<SignIn onSubmit={handleSignIn} />} />
         <Route path="/signup" element={<SignUp onSubmit={handleSignUp} />} />
       </Routes>

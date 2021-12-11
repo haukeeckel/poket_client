@@ -109,7 +109,7 @@ function SignUp({ onSubmit }) {
                     className="font-medium text-indigo-600 hover:text-indigo-500"
                     onClick={() => setErrors(null)}
                   >
-                    You have already a Account?
+                    You already have an account?
                   </Link>
                 </div>
               </div>

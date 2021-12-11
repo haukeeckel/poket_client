@@ -70,7 +70,7 @@ function SignIn({ onSubmit }) {
                     className="font-medium text-indigo-600 hover:text-indigo-500"
                     onClick={() => setErrors(null)}
                   >
-                    You have no Account?
+                    You don't have an Account?
                   </Link>
                 </div>
               </div>

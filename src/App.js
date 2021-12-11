@@ -11,9 +11,10 @@ import SignIn from './components/Auth/SignIn';
 import SignUp from './components/Auth/SignUp';
 import LoadingComponent from './components/Loading';
 import LandingPage from './components/LandingPage/LandingPage';
+import UserProfile from './components/UserProfile/UserProfile';
 
 function App() {
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const { setErrors } = useContext(ErrorContext);
 
   const [getUser, setGettingUser] = useState(true);
@@ -34,6 +35,15 @@ function App() {
       }
     })();
   }, [setUser]);
+
+  useEffect(() => {
+    if (user) {
+      navigate(`/user/`);
+    } else {
+      navigate('/');
+    }
+    console.log('hello');
+  }, [user]);
 
   const handleSignUp = async (e) => {
     e.preventDefault();

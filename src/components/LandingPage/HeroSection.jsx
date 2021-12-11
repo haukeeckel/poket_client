@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 function HeroSection() {
   return (
-    <div className="max-w-7xl mx-auto mt-7 lg:mt-12 lg:-rotate-2 sm:px-6 lg:px-8 rounded-md shadow-md flex flex-col lg:flex-row min-h-[560px] justify-center bg-white overflow-hidden ">
+    <div className="relavtiv max-w-7xl mx-auto mt-7 lg:mt-12 lg:-rotate-2 sm:px-6 lg:px-8 rounded-md shadow-md flex flex-col lg:flex-row min-h-[560px] justify-center bg-white">
       <div className="lg:w-1/2 my-6 lg:rotate-2">
         <main className="mx-auto px-4 sm:mt-12 sm:px-6 md:mt-12 lg:mt-12 lg:px-8">
           <div className="flex flex-col sm:text-center lg:text-left">

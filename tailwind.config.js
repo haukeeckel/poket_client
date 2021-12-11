@@ -16,5 +16,6 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms')],
+  nohoist: ['**/tailwindcss', '**/@tailwindcss/**'],
 };

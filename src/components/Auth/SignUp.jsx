@@ -1,11 +1,82 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { ErrorContext } from '../../context/error.context';
 import AuthError from '../Errors/AuthError';
+import StrengthPW from '../Errors/StrengthPW';
 
 function SignUp({ onSubmit }) {
   const { errors, setErrors } = useContext(ErrorContext);
+  const [password, setPassword] = useState({
+    value: '',
+    strength: 0,
+    text: 'week',
+    color: 'bg-gray-100',
+    colorText: 'text-gray-800',
+  });
+
+  const handlePassword = (e) => {
+    const newState = { ...password };
+    newState.value = e.target.value;
+    newState.strength = evaluateStrength(newState.value);
+    if (newState.strength === 0) {
+      newState.text = 'week';
+      newState.color = 'bg-gray-100';
+      newState.colorText = 'text-gray-800';
+    }
+    if (newState.strength === 1) {
+      newState.text = 'low';
+      newState.color = 'bg-red-100';
+      newState.colorText = 'text-red-800';
+    }
+    if (newState.strength === 2) {
+      newState.text = 'medium';
+      newState.color = 'bg-pink-100';
+      newState.colorText = 'text-pink-800';
+    }
+    if (newState.strength === 3) {
+      newState.text = 'close';
+      newState.color = 'bg-purple-100';
+      newState.colorText = 'text-purple-800';
+    }
+    if (newState.strength === 4) {
+      newState.text = 'almost';
+      newState.color = 'bg-blue-100';
+      newState.colorText = 'text-blue-800';
+    }
+    if (newState.strength === 5) {
+      newState.text = 'passed';
+      newState.color = 'bg-green-100';
+      newState.colorText = 'text-green-800';
+    }
+    setPassword(newState);
+  };
+
+  const evaluateStrength = (aValue) => {
+    let passwordCheck = 0;
+    // has at least 8 characters
+    if (aValue.length >= 8) {
+      passwordCheck++;
+    }
+    // has at least uppercase one letter
+    if (/[a-z]/.test(aValue)) {
+      passwordCheck++;
+    }
+    // has at least uppercase one letter
+    if (/[A-Z]/.test(aValue)) {
+      passwordCheck++;
+    }
+    // has at least one number
+    if (/[\d]/.test(aValue)) {
+      passwordCheck++;
+    }
+    // has at least one special character
+    if (/[!@#$%/^&*]/.test(aValue)) {
+      passwordCheck++;
+    }
+    return passwordCheck;
+  };
+
   return (
     <>
       <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -62,12 +133,15 @@ function SignUp({ onSubmit }) {
               </div>
 
               <div>
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Password
-                </label>
+                <div className="flex justify-between">
+                  <label
+                    htmlFor="password"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Password
+                  </label>
+                  <StrengthPW check={password} />
+                </div>
                 <div className="mt-1">
                   <input
                     id="password"
@@ -75,6 +149,7 @@ function SignUp({ onSubmit }) {
                     type="password"
                     autoComplete="current-password"
                     required
+                    onChange={handlePassword}
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   />
                   {errors && errors.password && (

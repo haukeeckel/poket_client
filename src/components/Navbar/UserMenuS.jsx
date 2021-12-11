@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import { Disclosure } from '@headlessui/react';
 
 import { UserContext } from '../../context/user.context';
+import { ErrorContext } from '../../context/error.context';
 
 function UserMenuS(props) {
+  const { setErrors } = useContext(ErrorContext);
   const { user } = useContext(UserContext);
   const { logout } = props;
 
@@ -55,10 +57,14 @@ function UserMenuS(props) {
         <div className="pt-4 pb-3 border-b border-gray-200">
           <div className="mt-3 space-y-1">
             <Disclosure.Button className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">
-              <Link to="/signin">Sign in</Link>
+              <Link to="/signin" onClick={() => setErrors(null)}>
+                Sign in
+              </Link>
             </Disclosure.Button>
             <Disclosure.Button className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">
-              <Link to="/signup">Sign up</Link>
+              <Link to="/signup" onClick={() => setErrors(null)}>
+                Sign up
+              </Link>
             </Disclosure.Button>
           </div>
         </div>

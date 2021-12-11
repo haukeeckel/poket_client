@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom';
 import { Menu, Transition } from '@headlessui/react';
 
 import { UserContext } from '../../context/user.context';
+import { ErrorContext } from '../../context/error.context';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
 function UserMenuML(props) {
+  const { setErrors } = useContext(ErrorContext);
   const { user } = useContext(UserContext);
   const { logout } = props;
 
@@ -95,7 +97,7 @@ function UserMenuML(props) {
         </Menu>
       ) : (
         <>
-          <Link to="/signup">
+          <Link to="/signup" onClick={() => setErrors(null)}>
             <button
               type="button"
               className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-3"
@@ -103,7 +105,7 @@ function UserMenuML(props) {
               Sign Up
             </button>
           </Link>
-          <Link to="/signin">
+          <Link to="/signin" onClick={() => setErrors(null)}>
             <button
               type="button"
               className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ml-3"

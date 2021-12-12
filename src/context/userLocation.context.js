@@ -7,7 +7,7 @@ import {
 } from '@heroicons/react/solid';
 
 const tabs = [
-  { name: 'Profile', to: '/user', icon: IdentificationIcon, current: true },
+  { name: 'Profile', to: '/user', icon: IdentificationIcon, current: false },
   {
     name: 'Cards',
     to: '/user/cards',

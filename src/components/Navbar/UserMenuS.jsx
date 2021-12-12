@@ -58,7 +58,7 @@ function UserMenuS(props) {
           </div>
           <div className="mt-3 space-y-1">
             {userLocation.map((tab) => (
-              <>
+              <div key={tab.name}>
                 <Disclosure.Button
                   key={tab.name}
                   className={classNames(
@@ -78,7 +78,7 @@ function UserMenuS(props) {
                     {tab.name}
                   </Link>
                 </Disclosure.Button>
-              </>
+              </div>
             ))}
             <Disclosure.Button className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">
               <Link to="/" onClick={logout}>

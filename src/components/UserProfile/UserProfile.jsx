@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { UserContext } from '../../context/user.context';
+import LoadingComponent from '../Loading';
 
 import UserProfileMenu from './UserProfilMenu';
 import UserSettings from './UserSettings';
@@ -11,7 +12,7 @@ export default function UserProfile({ handleEdit }) {
   const { pathname } = useLocation();
 
   if (!user) {
-    <p>Loading</p>;
+    return <LoadingComponent />;
   }
 
   return (

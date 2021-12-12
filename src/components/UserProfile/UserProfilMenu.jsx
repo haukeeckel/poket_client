@@ -5,7 +5,6 @@ import { UserContext } from '../../context/user.context';
 import { ErrorContext } from '../../context/error.context';
 import { UserLocationContext } from '../../context/userLocation.context';
 import { MainLocationContext } from '../../context/mainLocation.context';
-import LoadingComponent from '../Loading';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -24,12 +23,8 @@ export default function UserProfileMenu() {
     setErrors(null);
   };
 
-  if (!user) {
-    return <LoadingComponent />;
-  }
-
   return (
-    <div>
+    <>
       <div className="sm:hidden">
         <div className="flex justify-around">
           {userLocation.map((tab) => (
@@ -100,6 +95,6 @@ export default function UserProfileMenu() {
           </nav>
         </div>
       </div>
-    </div>
+    </>
   );
 }

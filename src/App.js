@@ -12,6 +12,8 @@ import SignUp from './components/Auth/SignUp';
 import LoadingComponent from './components/Loading';
 import LandingPage from './components/LandingPage/LandingPage';
 import UserProfile from './components/UserProfile/UserProfile';
+import CardGrid from './components/Card/CardGrid';
+import CardDiscover from './components/Card/CardDiscover';
 
 function App() {
   const { setUser } = useContext(UserContext);
@@ -130,6 +132,10 @@ function App() {
             path="/signup"
             element={<SignUp handleSignUp={handleSignUp} />}
           />
+        </>
+        {/* Main */}
+        <>
+          <Route path="/cards" element={<CardDiscover />} />
         </>
         {/* User */}
         <>

@@ -5,6 +5,7 @@ import { Menu, Transition } from '@headlessui/react';
 import { UserContext } from '../../context/user.context';
 import { ErrorContext } from '../../context/error.context';
 import { UserLocationContext } from '../../context/userLocation.context';
+import { MainLocationContext } from '../../context/mainlocation.context';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -13,13 +14,16 @@ function classNames(...classes) {
 function UserMenuML(props) {
   const { user } = useContext(UserContext);
   const { setErrors } = useContext(ErrorContext);
+  const { mainLocation } = useContext(MainLocationContext);
   const { userLocation } = useContext(UserLocationContext);
 
   const { logout } = props;
 
   const handleNavigate = (tab) => {
+    mainLocation.forEach((elem) => (elem.current = false));
     userLocation.forEach((elem) => (elem.current = false));
     tab.current = true;
+    setErrors(null);
   };
 
   return (

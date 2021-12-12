@@ -9,6 +9,11 @@ import UserSettings from './UserSettings';
 export default function UserProfile({ handleEdit }) {
   const { user } = useContext(UserContext);
   const { pathname } = useLocation();
+
+  if (!user) {
+    <p>Loading</p>;
+  }
+
   return (
     <>
       <UserProfileMenu />

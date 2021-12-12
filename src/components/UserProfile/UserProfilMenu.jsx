@@ -2,7 +2,9 @@ import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import { UserContext } from '../../context/user.context';
+import { ErrorContext } from '../../context/error.context';
 import { UserLocationContext } from '../../context/userLocation.context';
+import LoadingComponent from '../Loading';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -10,17 +12,23 @@ function classNames(...classes) {
 
 export default function UserProfileMenu() {
   const { user } = useContext(UserContext);
+  const { setErrors } = useContext(ErrorContext);
   const { userLocation } = useContext(UserLocationContext);
 
   const handleNavigate = (tab) => {
     userLocation.forEach((elem) => (elem.current = false));
     tab.current = true;
+    setErrors(null);
   };
+
+  if (!user) {
+    return <LoadingComponent />;
+  }
 
   return (
     <div>
       <div className="sm:hidden">
-        <div className="flex justify-between">
+        <div className="flex justify-around">
           {userLocation.map((tab) => (
             <Link
               key={tab.name}
@@ -35,7 +43,16 @@ export default function UserProfileMenu() {
                 'group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
               )}
             >
-              {tab.name}
+              <tab.icon
+                className={classNames(
+                  tab.current
+                    ? 'text-indigo-500'
+                    : 'text-gray-400 group-hover:text-gray-500',
+                  '-ml-0.5 mr-2 h-5 w-5'
+                )}
+                aria-hidden="true"
+              />
+              <span>{tab.name}</span>
             </Link>
           ))}
         </div>
@@ -43,7 +60,6 @@ export default function UserProfileMenu() {
         <span className="inline-flex items-center px-3 py-4 font-medium text-xl">
           Hello {user.username}
         </span>
-        {/* Use an "onChange" listener to redirect the user to the selected tab URL. */}
       </div>
       <div className="mx-auto hidden sm:block max-w-7xl mt-16">
         <div className="flex justify-between border-b border-gray-200">

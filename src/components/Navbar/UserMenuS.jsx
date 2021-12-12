@@ -4,17 +4,25 @@ import { Disclosure } from '@headlessui/react';
 
 import { UserContext } from '../../context/user.context';
 import { ErrorContext } from '../../context/error.context';
+import { MainLocationContext } from '../../context/mainlocation.context';
 import { UserLocationContext } from '../../context/userLocation.context';
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ');
+}
 
 function UserMenuS(props) {
   const { user } = useContext(UserContext);
   const { setErrors } = useContext(ErrorContext);
+  const { mainLocation } = useContext(MainLocationContext);
   const { userLocation } = useContext(UserLocationContext);
   const { logout } = props;
 
   const handleNavigate = (tab) => {
+    mainLocation.forEach((elem) => (elem.current = false));
     userLocation.forEach((elem) => (elem.current = false));
     tab.current = true;
+    setErrors(null);
   };
 
   return (
@@ -53,7 +61,12 @@ function UserMenuS(props) {
               <>
                 <Disclosure.Button
                   key={tab.name}
-                  className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100"
+                  className={classNames(
+                    tab.current
+                      ? 'bg-indigo-50 border-indigo-500 text-indigo-700'
+                      : 'border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700',
+                    'block pl-3 pr-4 py-2 border-l-4 text-base font-medium'
+                  )}
                 >
                   <Link
                     key={`L${tab.name}`}

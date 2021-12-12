@@ -51,6 +51,7 @@ function App() {
         withCredentials: true,
       });
       setUser(response.data);
+      setErrors(null);
       navigate('/');
     } catch (err) {
       setErrors(err.response.data);
@@ -71,6 +72,7 @@ function App() {
         withCredentials: true,
       });
       setUser(response.data);
+      setErrors(null);
       navigate('/');
     } catch (err) {
       setErrors(err.response.data);
@@ -80,6 +82,7 @@ function App() {
   const handleLogout = async () => {
     await axios.post(`${API_URL}/logout`, {}, { withCredentials: true });
     setUser(null);
+    setErrors(null);
     navigate('/');
   };
 
@@ -95,13 +98,15 @@ function App() {
         currentPassword: e.target.currentPassword.value,
       };
 
-      let { data } = await axios.patch(`${API_URL}/user/edit`, user, {
+      let response = await axios.patch(`${API_URL}/user/edit`, user, {
         withCredentials: true,
       });
-      setUser(data);
+      console.log(response);
+      setUser(response.data);
+      setErrors(null);
       navigate('/user');
     } catch (err) {
-      setErrors(err.data);
+      setErrors(err.response.data);
     }
   };
 

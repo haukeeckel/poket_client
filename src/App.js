@@ -14,7 +14,7 @@ import LandingPage from './components/LandingPage/LandingPage';
 import UserProfile from './components/UserProfile/UserProfile';
 
 function App() {
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
   const { setErrors } = useContext(ErrorContext);
 
   const [getUser, setGettingUser] = useState(true);
@@ -35,15 +35,6 @@ function App() {
       }
     })();
   }, [setUser]);
-
-  useEffect(() => {
-    if (user) {
-      navigate(`/user/`);
-    } else {
-      navigate('/');
-    }
-    console.log('hello');
-  }, [user]);
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -68,6 +59,7 @@ function App() {
 
   const handleSignIn = async (e) => {
     e.preventDefault();
+    console.log(e);
 
     try {
       let user = {
@@ -91,6 +83,28 @@ function App() {
     navigate('/');
   };
 
+  const handleEdit = async (e) => {
+    e.preventDefault();
+
+    try {
+      let user = {
+        username: e.target.username.value,
+        email: e.target.email.value,
+        password: e.target.password.value,
+        confirmPassword: e.target.confirmPassword.value,
+        currentPassword: e.target.currentPassword.value,
+      };
+
+      let { data } = await axios.patch(`${API_URL}/user/edit`, user, {
+        withCredentials: true,
+      });
+      setUser(data);
+      navigate('/user');
+    } catch (err) {
+      setErrors(err.data);
+    }
+  };
+
   if (getUser) {
     return <LoadingComponent />;
   }
@@ -101,8 +115,19 @@ function App() {
 
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/signin" element={<SignIn onSubmit={handleSignIn} />} />
-        <Route path="/signup" element={<SignUp onSubmit={handleSignUp} />} />
+        <Route
+          path="/signin"
+          element={<SignIn handleSignIn={handleSignIn} />}
+        />
+        <Route
+          path="/signup"
+          element={<SignUp handleSignUp={handleSignUp} />}
+        />
+        <Route
+          path="/user/settings"
+          element={<UserProfile handleEdit={handleEdit} />}
+        />
+        <Route path="/user/:id" element={<UserProfile />} />
         <Route path="/user" element={<UserProfile />} />
       </Routes>
     </div>

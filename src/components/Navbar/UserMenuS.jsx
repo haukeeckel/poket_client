@@ -4,11 +4,18 @@ import { Disclosure } from '@headlessui/react';
 
 import { UserContext } from '../../context/user.context';
 import { ErrorContext } from '../../context/error.context';
+import { UserLocationContext } from '../../context/userLocation.context';
 
 function UserMenuS(props) {
-  const { setErrors } = useContext(ErrorContext);
   const { user } = useContext(UserContext);
+  const { setErrors } = useContext(ErrorContext);
+  const { userLocation } = useContext(UserLocationContext);
   const { logout } = props;
+
+  const handleNavigate = (tab) => {
+    userLocation.forEach((elem) => (elem.current = false));
+    tab.current = true;
+  };
 
   return (
     <>
@@ -42,12 +49,24 @@ function UserMenuS(props) {
             </>
           </div>
           <div className="mt-3 space-y-1">
-            <Disclosure.Button className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">
-              <Link to="/user">Your Profile</Link>
-            </Disclosure.Button>
-            <Disclosure.Button className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">
-              <Link to="/">Settings</Link>
-            </Disclosure.Button>
+            {userLocation.map((tab) => (
+              <>
+                <Disclosure.Button
+                  key={tab.name}
+                  className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100"
+                >
+                  <Link
+                    key={`L${tab.name}`}
+                    to={tab.to}
+                    onClick={() => {
+                      handleNavigate(tab);
+                    }}
+                  >
+                    {tab.name}
+                  </Link>
+                </Disclosure.Button>
+              </>
+            ))}
             <Disclosure.Button className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">
               <Link to="/" onClick={logout}>
                 Sign out

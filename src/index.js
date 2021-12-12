@@ -4,6 +4,8 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { UserProviderWrapper } from './context/user.context';
 import { ErrorProviderWrapper } from './context/error.context';
+import { UserLocationProviderWrapper } from './context/userLocation.context';
+
 import App from './App';
 import './index.css';
 
@@ -12,7 +14,9 @@ ReactDOM.render(
     <BrowserRouter>
       <UserProviderWrapper>
         <ErrorProviderWrapper>
-          <App />
+          <UserLocationProviderWrapper>
+            <App />
+          </UserLocationProviderWrapper>
         </ErrorProviderWrapper>
       </UserProviderWrapper>
     </BrowserRouter>

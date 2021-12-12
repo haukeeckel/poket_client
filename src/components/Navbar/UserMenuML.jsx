@@ -4,15 +4,23 @@ import { Menu, Transition } from '@headlessui/react';
 
 import { UserContext } from '../../context/user.context';
 import { ErrorContext } from '../../context/error.context';
+import { UserLocationContext } from '../../context/userLocation.context';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
 function UserMenuML(props) {
-  const { setErrors } = useContext(ErrorContext);
   const { user } = useContext(UserContext);
+  const { setErrors } = useContext(ErrorContext);
+  const { userLocation } = useContext(UserLocationContext);
+
   const { logout } = props;
+
+  const handleNavigate = (tab) => {
+    userLocation.forEach((elem) => (elem.current = false));
+    tab.current = true;
+  };
 
   return (
     <>
@@ -56,32 +64,24 @@ function UserMenuML(props) {
             {/* USER MENU BOX */}
 
             <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
-              <Menu.Item>
-                {({ active }) => (
-                  <Link
-                    to="/user"
-                    className={classNames(
-                      active ? 'bg-gray-100' : '',
-                      'block px-4 py-2 text-sm text-gray-700'
-                    )}
-                  >
-                    Your Profile
-                  </Link>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <Link
-                    to="#"
-                    className={classNames(
-                      active ? 'bg-gray-100' : '',
-                      'block px-4 py-2 text-sm text-gray-700'
-                    )}
-                  >
-                    Settings
-                  </Link>
-                )}
-              </Menu.Item>
+              {userLocation.map((tab) => (
+                <Menu.Item key={tab.name}>
+                  {({ active }) => (
+                    <Link
+                      to={tab.to}
+                      className={classNames(
+                        active ? 'bg-gray-100' : '',
+                        'block px-4 py-2 text-sm text-gray-700'
+                      )}
+                      onClick={() => {
+                        handleNavigate(tab);
+                      }}
+                    >
+                      {tab.name}
+                    </Link>
+                  )}
+                </Menu.Item>
+              ))}
               <Menu.Item>
                 {({ active }) => (
                   <Link

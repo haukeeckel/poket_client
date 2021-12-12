@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { ErrorContext } from '../../context/error.context';
 import AuthError from '../Errors/AuthError';
 
-function SignIn({ onSubmit }) {
+function SignIn({ handleSignIn }) {
   const { errors, setErrors } = useContext(ErrorContext);
 
   return (
@@ -19,7 +19,7 @@ function SignIn({ onSubmit }) {
 
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <form className="space-y-6" onSubmit={onSubmit}>
+            <form className="space-y-6" onSubmit={handleSignIn}>
               <div>
                 <label
                   htmlFor="userInput"

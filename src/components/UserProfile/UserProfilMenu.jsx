@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { UserContext } from '../../context/user.context';
 import { ErrorContext } from '../../context/error.context';
 import { UserLocationContext } from '../../context/userLocation.context';
+import { MainLocationContext } from '../../context/mainLocation.context';
 import LoadingComponent from '../Loading';
 
 function classNames(...classes) {
@@ -13,10 +14,12 @@ function classNames(...classes) {
 export default function UserProfileMenu() {
   const { user } = useContext(UserContext);
   const { setErrors } = useContext(ErrorContext);
+  const { mainLocation } = useContext(MainLocationContext);
   const { userLocation } = useContext(UserLocationContext);
 
   const handleNavigate = (tab) => {
     userLocation.forEach((elem) => (elem.current = false));
+    mainLocation.forEach((elem) => (elem.current = false));
     tab.current = true;
     setErrors(null);
   };
@@ -39,7 +42,7 @@ export default function UserProfileMenu() {
               className={classNames(
                 tab.current
                   ? 'border-indigo-500 text-indigo-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300',
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 font-normal',
                 'group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
               )}
             >

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
-import { MainLocationProviderWrapper } from './context/mainlocation.context';
+import { MainLocationProviderWrapper } from './context/mainLocation.context';
 import { UserProviderWrapper } from './context/user.context';
 import { ErrorProviderWrapper } from './context/error.context';
 import { UserLocationProviderWrapper } from './context/userLocation.context';

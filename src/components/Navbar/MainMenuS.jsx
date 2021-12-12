@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Disclosure } from '@headlessui/react';
 
 import { ErrorContext } from '../../context/error.context';
-import { MainLocationContext } from '../../context/mainlocation.context';
+import { MainLocationContext } from '../../context/mainLocation.context';
 import { UserLocationContext } from '../../context/userLocation.context';
 
 function classNames(...classes) {

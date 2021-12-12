@@ -115,27 +115,41 @@ function App() {
   }
 
   return (
-    <div>
+    <>
       <NavigationBar logout={handleLogout} />
 
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route
-          path="/signin"
-          element={<SignIn handleSignIn={handleSignIn} />}
-        />
-        <Route
-          path="/signup"
-          element={<SignUp handleSignUp={handleSignUp} />}
-        />
-        <Route
-          path="/user/settings"
-          element={<UserProfile handleEdit={handleEdit} />}
-        />
-        <Route path="/user/:id" element={<UserProfile />} />
-        <Route path="/user" element={<UserProfile />} />
+        {/* Auth */}
+        <>
+          <Route
+            path="/signin"
+            element={<SignIn handleSignIn={handleSignIn} />}
+          />
+          <Route
+            path="/signup"
+            element={<SignUp handleSignUp={handleSignUp} />}
+          />
+        </>
+        {/* User */}
+        <>
+          <Route
+            path="/user/settings"
+            element={<UserProfile handleEdit={handleEdit} />}
+          />
+          <Route
+            path="/user/lists"
+            element={<UserProfile handleEdit={handleEdit} />}
+          />
+          <Route
+            path="/user/cards"
+            element={<UserProfile handleEdit={handleEdit} />}
+          />
+          <Route path="/user/:username" element={<LandingPage />} />
+          <Route path="/user" element={<UserProfile />} />
+        </>
       </Routes>
-    </div>
+    </>
   );
 }
 

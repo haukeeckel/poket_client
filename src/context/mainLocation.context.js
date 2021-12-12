@@ -2,8 +2,8 @@ import { createContext, useState } from 'react';
 
 const tabs = [
   { name: 'Home', to: '/', current: true },
-  { name: 'Cards', to: '/', current: false },
-  { name: 'Sets', to: '/', current: false },
+  { name: 'Discover Cards', to: '/', current: false },
+  { name: 'Discover Sets', to: '/', current: false },
 ];
 
 const MainLocationContext = createContext();

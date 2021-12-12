@@ -5,7 +5,7 @@ import { Menu, Transition } from '@headlessui/react';
 import { UserContext } from '../../context/user.context';
 import { ErrorContext } from '../../context/error.context';
 import { UserLocationContext } from '../../context/userLocation.context';
-import { MainLocationContext } from '../../context/mainlocation.context';
+import { MainLocationContext } from '../../context/mainLocation.context';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');

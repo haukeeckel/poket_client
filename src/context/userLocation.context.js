@@ -1,16 +1,23 @@
 import { createContext, useState } from 'react';
 import {
-  ViewGridIcon,
+  BookmarkIcon,
+  CollectionIcon,
   IdentificationIcon,
   CogIcon,
 } from '@heroicons/react/solid';
 
 const tabs = [
-  { name: 'my Profile', to: '/user', icon: IdentificationIcon, current: true },
+  { name: 'Profile', to: '/user', icon: IdentificationIcon, current: true },
   {
-    name: 'Products',
-    to: '/user/products',
-    icon: ViewGridIcon,
+    name: 'Cards',
+    to: '/user/cards',
+    icon: CollectionIcon,
+    current: false,
+  },
+  {
+    name: 'Lists',
+    to: '/user/lists',
+    icon: BookmarkIcon,
     current: false,
   },
   { name: 'Settings', to: '/user/settings', icon: CogIcon, current: false },

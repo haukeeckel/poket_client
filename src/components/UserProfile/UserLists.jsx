@@ -13,7 +13,6 @@ export default function UserProfile({ handleEdit }) {
   useEffect(() => {
     if (user) {
       (async () => {
-        console.log(user.lists);
         try {
           const { data } = await axios.post(
             `${API_URL}/lists/`,
@@ -21,12 +20,25 @@ export default function UserProfile({ handleEdit }) {
             { withCredentials: true }
           );
 
-          console.log({ data });
           setLists(data);
         } catch (err) {}
       })();
     }
   }, [user]);
+
+  const handleRemoveCard = async (cardId, listId) => {
+    try {
+      let { data } = await axios.patch(
+        `${API_URL}/lists/card/remove`,
+        { listId, cardId },
+        {
+          withCredentials: true,
+        }
+      );
+
+      setLists(data);
+    } catch (err) {}
+  };
 
   if (!user) {
     return <LoadingComponent />;
@@ -91,7 +103,12 @@ export default function UserProfile({ handleEdit }) {
                         <span className="ml-3">Detail</span>
                       </span>
                     </div>
-                    <div className="-ml-px w-0 flex-1 flex cursor-pointer">
+                    <div
+                      onClick={() => {
+                        handleRemoveCard(card._id, list._id);
+                      }}
+                      className="-ml-px w-0 flex-1 flex cursor-pointer"
+                    >
                       <span className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500">
                         <MinusCircleIcon
                           className="w-5 h-5 text-gray-400"

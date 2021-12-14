@@ -39,7 +39,7 @@ function App() {
         setGettingUser(false);
       }
     })();
-  }, [setUser]);
+  }, []);
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -116,6 +116,7 @@ function App() {
   };
 
   const { pathname } = useLocation();
+
   if (getUser) {
     mainLocation.forEach((elem) =>
       pathname === elem.to ? (elem.current = true) : (elem.current = false)
@@ -143,7 +144,7 @@ function App() {
             element={<SignUp handleSignUp={handleSignUp} />}
           />
         </>
-        {/* Main */}
+        {/* Cards */}
         <>
           <Route path="/cards" element={<CardDiscover />} />
         </>
@@ -153,10 +154,7 @@ function App() {
             path="/user/settings"
             element={<UserProfile handleEdit={handleEdit} />}
           />
-          <Route
-            path="/user/lists"
-            element={<UserProfile handleEdit={handleEdit} />}
-          />
+          <Route path="/user/lists" element={<UserProfile />} />
           <Route
             path="/user/cards"
             element={<UserProfile handleEdit={handleEdit} />}

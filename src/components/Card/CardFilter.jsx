@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { useEffect } from 'react';
-import { useState } from 'react/cjs/react.development';
+import { useEffect, useState } from 'react';
 import { API_KEY } from '../../config';
 
 export default function CardFilter(query, pageNumber) {

@@ -6,6 +6,7 @@ import LoadingComponent from '../Loading';
 
 import UserProfileMenu from './UserProfilMenu';
 import UserSettings from './UserSettings';
+import UserLists from './UserLists';
 
 export default function UserProfile({ handleEdit }) {
   const { user } = useContext(UserContext);
@@ -20,6 +21,8 @@ export default function UserProfile({ handleEdit }) {
       <UserProfileMenu />
       {pathname === '/user/settings' ? (
         <UserSettings handleEdit={handleEdit} />
+      ) : pathname === '/user/lists' ? (
+        <UserLists />
       ) : (
         <></>
       )}

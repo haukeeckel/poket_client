@@ -1,8 +1,10 @@
-// import axios from 'axios';
+import axios from 'axios';
 // import { useEffect } from 'react';
 import { useState, useRef, useCallback } from 'react';
-import CardFilter from './CardFilter';
 import { IdentificationIcon, PlusCircleIcon } from '@heroicons/react/solid';
+
+import CardFilter from './CardFilter';
+import { API_URL } from '../../config';
 
 const types = [
   'Colorless',
@@ -113,7 +115,30 @@ function CardDiscover() {
     setPageNumber(1);
   };
 
-  console.log(error);
+  const handleAddCard = async (card) => {
+    let addCard = {
+      id: card.id,
+      name: card.name,
+      supertype: card.supertype,
+      types: card.types,
+      set: card.set,
+      number: card.number,
+      artist: card.artist,
+      rarity: card.rarity,
+      flavorText: card.flavorText,
+      images: card.images,
+    };
+
+    let { data } = await axios.post(`${API_URL}/card/add/`, addCard, {
+      withCredentials: true,
+    });
+
+    console.log(data);
+  };
+
+  if (error) {
+    console.log(error);
+  }
 
   return (
     <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -173,7 +198,7 @@ function CardDiscover() {
                       {card.name}
                     </h3>
                     <img
-                      className="w-40 flex-shrink-0 mx-auto rounded hover:z-50 hover:scale-150 hover:shadow-xl hover:transition-transform"
+                      className="w-40 flex-shrink-0 mx-auto rounded hover:z-50 hover:scale-150 hover:shadow-xl  transition-all"
                       src={card.images.small}
                       alt=""
                     />
@@ -215,7 +240,12 @@ function CardDiscover() {
                         <span className="ml-3">Detail</span>
                       </span>
                     </div>
-                    <div className="-ml-px w-0 flex-1 flex">
+                    <div
+                      onClick={() => {
+                        handleAddCard(card);
+                      }}
+                      className="-ml-px w-0 flex-1 flex cursor-pointer"
+                    >
                       <span className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500">
                         <PlusCircleIcon
                           className="w-5 h-5 text-gray-400"
@@ -240,7 +270,7 @@ function CardDiscover() {
                       {card.name}
                     </h3>
                     <img
-                      className="w-40 flex-shrink-0 mx-auto rounded hover:z-50 hover:scale-150 hover:shadow-xl  hover:transition-transform"
+                      className="w-40 flex-shrink-0 mx-auto rounded hover:z-50 hover:scale-150 hover:shadow-xl  transition-all"
                       src={card.images.small}
                       alt=""
                     />
@@ -282,7 +312,12 @@ function CardDiscover() {
                         <span className="ml-3">Detail</span>
                       </span>
                     </div>
-                    <div className="-ml-px w-0 flex-1 flex">
+                    <div
+                      onClick={() => {
+                        handleAddCard(card);
+                      }}
+                      className="-ml-px w-0 flex-1 flex cursor-pointer"
+                    >
                       <span className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500">
                         <PlusCircleIcon
                           className="w-5 h-5 text-gray-400"

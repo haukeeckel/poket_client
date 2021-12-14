@@ -20,7 +20,7 @@ function SignUp({ handleSignUp }) {
     newState.value = e.target.value;
     newState.strength = evaluateStrength(newState.value);
     if (newState.strength === 0) {
-      newState.text = 'week';
+      newState.text = 'weak';
       newState.color = 'bg-gray-100';
       newState.colorText = 'text-gray-800';
     }

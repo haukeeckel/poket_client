@@ -1,85 +1,50 @@
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useState } from 'react/cjs/react.development';
+import { API_KEY } from '../../config';
 
-import CardFilterSupertype from './CardFilters/CardFilterSupertype';
-import CardFilterType from './CardFilters/CardFilterType';
+export default function CardFilter(query, pageNumber) {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [cards, setCards] = useState([]);
+  const [hasMore, setHasMore] = useState(false);
 
-export default function CardFilter() {
-  const [supertypes, setSupertypes] = useState(null);
-  const [filteredSupertype, setfilteredSupertype] = useState([]);
+  useEffect(() => {
+    setCards([]);
+  }, [query]);
 
   useEffect(() => {
     (async () => {
+      setLoading(true);
+      setError(false);
       try {
-        const {
-          data: { data },
-        } = await axios.get('https://api.pokemontcg.io/v2/supertypes');
+        let cancel;
+        let res = await axios({
+          method: 'GET',
+          url: 'https://api.pokemontcg.io/v2/cards?',
+          params: { q: `${query}`, page: pageNumber, pageSize: 12 },
+          headers: { Authorization: API_KEY },
+          cancelToken: new axios.CancelToken((c) => (cancel = c)),
+        });
 
-        setSupertypes(data);
-      } catch (error) {}
+        setCards((prevCards) => {
+          return [...new Set([...prevCards, ...res.data.data])];
+        });
+
+        setHasMore(res.data.data.length > 0);
+
+        setLoading(false);
+
+        return () => cancel();
+      } catch (err) {
+        if (axios.isCancel(err)) {
+          return;
+        }
+
+        setError(err);
+      }
     })();
-  }, []);
+  }, [query, pageNumber]);
 
-  const handleSupertypes = (supertype) => {
-    const currentFilter = [...filteredSupertype];
-
-    if (currentFilter.includes(supertype)) {
-      const index = currentFilter.indexOf(supertype);
-      currentFilter.splice(index, 1);
-    } else {
-      currentFilter.push(supertype);
-    }
-
-    setfilteredSupertype(currentFilter);
-  };
-
-  const [types, setTypes] = useState(null);
-  const [filteredtype, setfilteredType] = useState([]);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const {
-          data: { data },
-        } = await axios.get('https://api.pokemontcg.io/v2/types');
-
-        setTypes(data);
-      } catch (error) {}
-    })();
-  }, []);
-
-  const handleTypes = (supertype) => {
-    const currentFilter = [...filteredtype];
-
-    if (currentFilter.includes(supertype)) {
-      const index = currentFilter.indexOf(supertype);
-      currentFilter.splice(index, 1);
-    } else {
-      currentFilter.push(supertype);
-    }
-
-    setfilteredType(currentFilter);
-  };
-
-  const handleFilter = (e) => {
-    e.preventDefault();
-    console.log(e.target.Engergy.value);
-  };
-
-  return (
-    <form onSubmit={handleFilter}>
-      <CardFilterSupertype
-        filterData={supertypes}
-        setFilter={handleSupertypes}
-      />
-      <CardFilterType filterData={types} setFilter={handleTypes} />
-
-      <button
-        type="submit"
-        className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-      >
-        Filter
-      </button>
-    </form>
-  );
+  return { loading, error, cards, hasMore };
 }

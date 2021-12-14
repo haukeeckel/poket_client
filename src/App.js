@@ -1,10 +1,12 @@
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 
 import { API_URL } from './config';
 import { UserContext } from './context/user.context';
 import { ErrorContext } from './context/error.context';
+import { MainLocationContext } from './context/mainLocation.context';
+import { UserLocationContext } from './context/userLocation.context';
 
 import NavigationBar from './components/Navbar/NavigationBar';
 import SignIn from './components/Auth/SignIn';
@@ -12,12 +14,13 @@ import SignUp from './components/Auth/SignUp';
 import LoadingComponent from './components/Loading';
 import LandingPage from './components/LandingPage/LandingPage';
 import UserProfile from './components/UserProfile/UserProfile';
-import CardGrid from './components/Card/CardGrid';
 import CardDiscover from './components/Card/CardDiscover';
 
 function App() {
   const { setUser } = useContext(UserContext);
   const { setErrors } = useContext(ErrorContext);
+  const { mainLocation } = useContext(MainLocationContext);
+  const { userLocation } = useContext(UserLocationContext);
 
   const [getUser, setGettingUser] = useState(true);
 
@@ -112,7 +115,14 @@ function App() {
     }
   };
 
+  const { pathname } = useLocation();
   if (getUser) {
+    mainLocation.forEach((elem) =>
+      pathname === elem.to ? (elem.current = true) : (elem.current = false)
+    );
+    userLocation.forEach((elem) =>
+      pathname === elem.to ? (elem.current = true) : (elem.current = false)
+    );
     return <LoadingComponent />;
   }
 

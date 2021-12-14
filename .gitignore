@@ -20,7 +20,12 @@
 .env
 
 src/config.js
-src/components/Card/CardFilters/CardFilterName.jsx
+src/components/Card/CardAction
+src/components/Card/CardFilters
+src/components/Card/CardDiscoverCopy.jsx
+src/components/Card/CardFilterCopy.jsx
+src/components/Card/CardToList.jsx
+src/components/Card/CardGrid.jsx
 
 npm-debug.log*
 yarn-debug.log*

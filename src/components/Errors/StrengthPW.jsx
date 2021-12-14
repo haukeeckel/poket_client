@@ -10,7 +10,7 @@ function StrengthPW({ check }) {
   );
   return (
     <>
-      <span className={classStr}>{check.text ? check.text : 'week'}</span>
+      <span className={classStr}>{check.text ? check.text : 'weak'}</span>
     </>
   );
 }

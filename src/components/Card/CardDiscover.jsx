@@ -8,7 +8,9 @@ import { API_URL } from '../../config';
 import CardFilter from './CardFilter';
 import ScrollToTop from '../ScrollToTop';
 import ScrollToBottom from '../ScrollToBottom';
-import InfoBox from '../InfoBox';
+import InfoBoxSuccess from '../InfoBoxSuccess';
+import InfoBoxWarning from '../InfoBoxWarning';
+import ModalList from '../ModalList';
 
 const types = [
   'Colorless',
@@ -27,7 +29,7 @@ const types = [
 const supertypes = ['Energy', 'Pokémon', 'Trainer'];
 
 function CardDiscover() {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const [query, setQuery] = useState('');
   // const [supertypes, setSupertypes] = useState([]);
   // const [types, setTypes] = useState([]);
@@ -147,8 +149,13 @@ function CardDiscover() {
       setNotifications([]);
       let cardNote = [data];
       setNotifications(cardNote);
+      setUser(data.user);
     }
   };
+
+  if (error) {
+    return <p>{error}</p>;
+  }
 
   return (
     <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -390,7 +397,14 @@ function CardDiscover() {
       </ul>
       <ScrollToTop />
       <ScrollToBottom />
-      {notifications.length ? <InfoBox info={notifications} /> : <></>}
+      {notifications.length && notifications[0].success ? (
+        <InfoBoxSuccess info={notifications} />
+      ) : notifications.length ? (
+        <InfoBoxWarning info={notifications} />
+      ) : (
+        <></>
+      )}
+      <ModalList />
     </div>
   );
 }

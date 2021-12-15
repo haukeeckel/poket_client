@@ -1,9 +1,9 @@
 import { Fragment, useState, useEffect } from 'react';
 import { Transition } from '@headlessui/react';
-import { CheckCircleIcon } from '@heroicons/react/outline';
+import { ExclamationCircleIcon } from '@heroicons/react/outline';
 import { XIcon } from '@heroicons/react/solid';
 
-export default function InfoBox({ info }) {
+export default function InfoBoxSuccess({ info }) {
   const [show, setShow] = useState(true);
 
   useEffect(() => {
@@ -40,17 +40,17 @@ export default function InfoBox({ info }) {
               <div className="p-4">
                 <div className="flex items-start">
                   <div className="flex-shrink-0">
-                    <CheckCircleIcon
-                      className="h-6 w-6 text-green-400"
+                    <ExclamationCircleIcon
+                      className="h-6 w-6 text-yellow-500"
                       aria-hidden="true"
                     />
                   </div>
                   <div className="ml-3 w-0 flex-1 pt-0.5">
                     <p className="text-sm font-medium text-gray-900">
-                      Successfully saved!
+                      Already saved!
                     </p>
                     <p className="mt-1 text-sm text-gray-500">
-                      {info[0].card} added to list {info[0].list}
+                      List {info[0].list} already includes {info[0].card}.
                     </p>
                   </div>
                   <img

@@ -21,7 +21,7 @@ export default function CardDetail() {
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  }, [id]);
 
   if (!card) {
     return <LoadingComponent />;

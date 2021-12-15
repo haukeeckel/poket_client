@@ -1,13 +1,14 @@
 import axios from 'axios';
-// import { useEffect } from 'react';
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useContext, useEffect } from 'react';
 import { IdentificationIcon, PlusCircleIcon } from '@heroicons/react/solid';
+import { Link, useNavigate } from 'react-router-dom';
 
-import CardFilter from './CardFilter';
+import { UserContext } from '../../context/user.context';
 import { API_URL } from '../../config';
-import { Link } from 'react-router-dom';
+import CardFilter from './CardFilter';
 import ScrollToTop from '../ScrollToTop';
 import ScrollToBottom from '../ScrollToBottom';
+import InfoBox from '../InfoBox';
 
 const types = [
   'Colorless',
@@ -26,11 +27,15 @@ const types = [
 const supertypes = ['Energy', 'Pokémon', 'Trainer'];
 
 function CardDiscover() {
+  const { user } = useContext(UserContext);
   const [query, setQuery] = useState('');
   // const [supertypes, setSupertypes] = useState([]);
   // const [types, setTypes] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
+  const [notifications, setNotifications] = useState([]);
   const { loading, error, cards, hasMore } = CardFilter(query, pageNumber);
+
+  const navigate = useNavigate();
 
   // Types Fetch
   // useEffect(() => {
@@ -119,29 +124,31 @@ function CardDiscover() {
   };
 
   const handleAddCard = async (card) => {
-    let addCard = {
-      id: card.id,
-      name: card.name,
-      supertype: card.supertype,
-      types: card.types,
-      set: card.set,
-      number: card.number,
-      artist: card.artist,
-      rarity: card.rarity,
-      flavorText: card.flavorText,
-      images: card.images,
-    };
+    if (!user) {
+      navigate('/signin');
+    } else {
+      let addCard = {
+        id: card.id,
+        name: card.name,
+        supertype: card.supertype,
+        types: card.types,
+        set: card.set,
+        number: card.number,
+        artist: card.artist,
+        rarity: card.rarity,
+        flavorText: card.flavorText,
+        images: card.images,
+      };
 
-    let { data } = await axios.post(`${API_URL}/card/add/`, addCard, {
-      withCredentials: true,
-    });
+      let { data } = await axios.post(`${API_URL}/card/add/`, addCard, {
+        withCredentials: true,
+      });
 
-    console.log(data);
+      setNotifications([]);
+      let cardNote = [data];
+      setNotifications(cardNote);
+    }
   };
-
-  if (error) {
-    console.log(error);
-  }
 
   return (
     <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -357,6 +364,7 @@ function CardDiscover() {
       </ul>
       <ScrollToTop />
       <ScrollToBottom />
+      {notifications.length ? <InfoBox info={notifications} /> : <></>}
     </div>
   );
 }

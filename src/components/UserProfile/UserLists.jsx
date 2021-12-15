@@ -53,7 +53,7 @@ export default function UserProfile({ handleEdit }) {
           <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-6 ">
             {list.cards.map((card, i) => (
               <li
-                key={card.id}
+                key={i + card.id}
                 className="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-gray-200"
               >
                 <div className="h-96">

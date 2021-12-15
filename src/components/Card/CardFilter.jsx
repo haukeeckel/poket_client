@@ -21,7 +21,7 @@ export default function CardFilter(query, pageNumber) {
         let res = await axios({
           method: 'GET',
           url: 'https://api.pokemontcg.io/v2/cards?',
-          params: { q: `${query}`, page: pageNumber, pageSize: 12 },
+          params: { q: `${query}`, page: pageNumber, pageSize: 8 },
           headers: { Authorization: API_KEY },
           cancelToken: new axios.CancelToken((c) => (cancel = c)),
         });

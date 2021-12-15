@@ -5,6 +5,7 @@ import { IdentificationIcon, MinusCircleIcon } from '@heroicons/react/solid';
 import { API_URL } from '../../config';
 import { UserContext } from '../../context/user.context';
 import LoadingComponent from '../Loading';
+import { Link } from 'react-router-dom';
 
 export default function UserProfile({ handleEdit }) {
   const { user } = useContext(UserContext);
@@ -94,7 +95,7 @@ export default function UserProfile({ handleEdit }) {
                 </div>
                 <div>
                   <div className="-mt-px flex divide-x divide-gray-200">
-                    <div className="w-0 flex-1 flex">
+                    <Link to={`/cards/${card.id}`} className="w-0 flex-1 flex">
                       <span className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500">
                         <IdentificationIcon
                           className="w-5 h-5 text-gray-400"
@@ -102,7 +103,7 @@ export default function UserProfile({ handleEdit }) {
                         />
                         <span className="ml-3">Detail</span>
                       </span>
-                    </div>
+                    </Link>
                     <div
                       onClick={() => {
                         handleRemoveCard(card._id, list._id);

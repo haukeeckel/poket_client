@@ -15,6 +15,7 @@ import LoadingComponent from './components/Loading';
 import LandingPage from './components/LandingPage/LandingPage';
 import UserProfile from './components/UserProfile/UserProfile';
 import CardDiscover from './components/Card/CardDiscover';
+import CardDetail from './components/Card/CardDetail';
 
 function App() {
   const { setUser } = useContext(UserContext);
@@ -147,6 +148,7 @@ function App() {
         {/* Cards */}
         <>
           <Route path="/cards" element={<CardDiscover />} />
+          <Route path="/cards/:id" element={<CardDetail />} />
         </>
         {/* User */}
         <>

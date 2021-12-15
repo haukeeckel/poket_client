@@ -5,6 +5,7 @@ import { IdentificationIcon, PlusCircleIcon } from '@heroicons/react/solid';
 
 import CardFilter from './CardFilter';
 import { API_URL } from '../../config';
+import { Link } from 'react-router-dom';
 
 const types = [
   'Colorless',
@@ -189,7 +190,7 @@ function CardDiscover() {
             return (
               <li
                 ref={lastCardRef}
-                key={card.id}
+                key={i + card.id}
                 className="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-gray-200"
               >
                 <div className="h-96">
@@ -204,16 +205,23 @@ function CardDiscover() {
                     />
 
                     <dl className="mt-1 flex-grow flex flex-col justify-between">
-                      <dt className="sr-only">Supertype</dt>
+                      <dt key="supertype" className="sr-only">
+                        Supertype
+                      </dt>
                       <dd className="text-gray-500 text-sm">
                         {card.supertype}
                       </dd>
-                      <dt className="sr-only">Types</dt>
+                      <dt key="types" className="sr-only">
+                        Types
+                      </dt>
                       <dd className="mt-3">
                         {card.types &&
-                          card.types.map((type) => {
+                          card.types.map((type, i) => {
                             return (
-                              <div className="inline-flex items-center">
+                              <div
+                                key={i + type}
+                                className="inline-flex items-center"
+                              >
                                 <img
                                   className="w-4 h-4"
                                   src={`/images/type/${type.toLowerCase()}.png`}
@@ -231,7 +239,11 @@ function CardDiscover() {
                 </div>
                 <div>
                   <div className="-mt-px flex divide-x divide-gray-200">
-                    <div className="w-0 flex-1 flex">
+                    <Link
+                      to={`/cards/${card.id}`}
+                      target="_blank"
+                      className="w-0 flex-1 flex"
+                    >
                       <span className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500">
                         <IdentificationIcon
                           className="w-5 h-5 text-gray-400"
@@ -239,7 +251,7 @@ function CardDiscover() {
                         />
                         <span className="ml-3">Detail</span>
                       </span>
-                    </div>
+                    </Link>
                     <div
                       onClick={() => {
                         handleAddCard(card);
@@ -261,7 +273,7 @@ function CardDiscover() {
           } else {
             return (
               <li
-                key={card.id}
+                key={i + card.id}
                 className="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-gray-200"
               >
                 <div className="h-96">
@@ -276,11 +288,15 @@ function CardDiscover() {
                     />
 
                     <dl className="mt-1 flex-grow flex flex-col justify-between">
-                      <dt className="sr-only">Supertype</dt>
+                      <dt key={i + card.supertype} className="sr-only">
+                        Supertype
+                      </dt>
                       <dd className="text-gray-500 text-sm">
                         {card.supertype}
                       </dd>
-                      <dt className="sr-only">Types</dt>
+                      <dt key={i + card.types} className="sr-only">
+                        Types
+                      </dt>
                       <dd className="mt-3">
                         {card.types &&
                           card.types.map((type) => {
@@ -303,7 +319,11 @@ function CardDiscover() {
                 </div>
                 <div>
                   <div className="-mt-px flex divide-x divide-gray-200">
-                    <div className="w-0 flex-1 flex">
+                    <Link
+                      to={`/cards/${card.id}`}
+                      target="_blank"
+                      className="w-0 flex-1 flex"
+                    >
                       <span className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500">
                         <IdentificationIcon
                           className="w-5 h-5 text-gray-400"
@@ -311,7 +331,7 @@ function CardDiscover() {
                         />
                         <span className="ml-3">Detail</span>
                       </span>
-                    </div>
+                    </Link>
                     <div
                       onClick={() => {
                         handleAddCard(card);

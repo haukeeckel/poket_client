@@ -1,11 +1,13 @@
 import axios from 'axios';
 import { useState, useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { IdentificationIcon, MinusCircleIcon } from '@heroicons/react/solid';
 
 import { API_URL } from '../../config';
 import { UserContext } from '../../context/user.context';
 import LoadingComponent from '../Loading';
-import { Link } from 'react-router-dom';
+import ScrollToTop from '../ScrollToTop';
+import ScrollToBottom from '../ScrollToBottom';
 
 export default function UserProfile({ handleEdit }) {
   const { user } = useContext(UserContext);
@@ -123,6 +125,8 @@ export default function UserProfile({ handleEdit }) {
               </li>
             ))}
           </ul>
+          <ScrollToTop />
+          <ScrollToBottom />
         </>
       ))}
     </div>

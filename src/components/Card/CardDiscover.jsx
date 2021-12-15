@@ -152,14 +152,34 @@ function CardDiscover() {
 
   return (
     <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-      <form onChange={handleFilter}>
-        <input name="name" type="text" />
+      <form
+        className="max-w-xl mx-auto sm:px-6 lg:px-8 flex flex-row flex-wrap items-start bg-white shadow-sm py-6 mt-6 rounded-md"
+        onChange={handleFilter}
+      >
+        <label
+          htmlFor="name"
+          className="mx-10 font-semibold text-xl text-center text-gray-900 mt-2 mb-4 w-full md:order-1"
+        >
+          Card Name
+        </label>
+        <input
+          name="name"
+          type="text"
+          className="hadow-sm mx-10 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md md:order-2"
+        />
+
+        <label
+          htmlFor="supertypes"
+          className="font-semibold text-xl text-gray-900 mt-2 mb-4 sm:w-1/3 w-full mx-10 text-center md:order-3"
+        >
+          Supertype
+        </label>
         <select
           id="supertypes"
           aria-describedby="description"
           name="supertypes"
           type="text"
-          className="hadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+          className="sm:w-1/3 mx-10 hadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md md:order-5"
         >
           <option value="">All</option>
           {supertypes.map((supertype, i) => (
@@ -168,13 +188,19 @@ function CardDiscover() {
             </option>
           ))}
         </select>
+        <label
+          htmlFor="types"
+          className="font-semibold text-xl text-gray-900 mt-2 mb-4 sm:w-1/3 w-full mx-10 text-center md:order-3"
+        >
+          Typ
+        </label>
         <select
           id="types"
           aria-describedby="description"
           name="types"
           type="text"
           multiple
-          className="hadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+          className="sm:w-1/3 mx-10 hadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md md:order-6"
         >
           {types.map((type, i) => (
             <option

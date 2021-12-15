@@ -6,6 +6,8 @@ import { IdentificationIcon, PlusCircleIcon } from '@heroicons/react/solid';
 import CardFilter from './CardFilter';
 import { API_URL } from '../../config';
 import { Link } from 'react-router-dom';
+import ScrollToTop from '../ScrollToTop';
+import ScrollToBottom from '../ScrollToBottom';
 
 const types = [
   'Colorless',
@@ -353,6 +355,8 @@ function CardDiscover() {
           }
         })}
       </ul>
+      <ScrollToTop />
+      <ScrollToBottom />
     </div>
   );
 }

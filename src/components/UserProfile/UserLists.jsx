@@ -1,7 +1,12 @@
 import axios from 'axios';
 import { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { IdentificationIcon, MinusCircleIcon } from '@heroicons/react/solid';
+import {
+  IdentificationIcon,
+  MinusCircleIcon,
+  TrashIcon,
+  ChevronDownIcon,
+} from '@heroicons/react/solid';
 
 import { API_URL } from '../../config';
 import { UserContext } from '../../context/user.context';
@@ -11,7 +16,7 @@ import ScrollToTop from '../Utilities/ScrollToTop';
 import ScrollToBottom from '../Utilities/ScrollToBottom';
 
 export default function UserProfile({ handleEdit }) {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const [lists, setLists] = useState([]);
 
   useEffect(() => {
@@ -41,7 +46,40 @@ export default function UserProfile({ handleEdit }) {
       );
 
       setLists(data);
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleRemoveList = async (listId) => {
+    try {
+      let { data } = await axios.post(
+        `${API_URL}/list/remove`,
+        { listId },
+        {
+          withCredentials: true,
+        }
+      );
+
+      setUser(data.user);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleDisplay = (list) => {
+    console.log(list.toString());
+    const listGrid = document.getElementById(list.toString());
+
+    if (listGrid.classList.contains('scale-1')) {
+      listGrid.classList.remove('scale-1');
+      listGrid.classList.add('scale-0', 'h-0');
+    } else {
+      listGrid.classList.remove('scale-0', 'h-0');
+      listGrid.classList.add('scale-1');
+    }
+
+    console.log(listGrid);
   };
 
   if (!user) {
@@ -52,10 +90,32 @@ export default function UserProfile({ handleEdit }) {
     <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
       {lists.map((list, i) => (
         <>
-          <h3 className="mt-8 text-lg font-medium text-gray-500">
-            List: <strong className="text-gray-900 ml-4">{list.title}</strong>
-          </h3>
-          <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-6 ">
+          <div
+            key={i + list._id}
+            className="flex mt-8 items-center text-center"
+          >
+            <h3 className="text-lg font-medium text-gray-500 ">
+              List: <strong className="text-gray-900 mx-4">{list.title}</strong>
+            </h3>
+            <TrashIcon
+              className="-mt-1 w-5 h-5 text-gray-400"
+              aria-hidden="false"
+              onClick={() => {
+                handleRemoveList(list._id);
+              }}
+            />
+            <ChevronDownIcon
+              className="-mt-1 w-10 mx-auto h-10 text-gray-400"
+              aria-hidden="false"
+              onClick={() => {
+                handleDisplay(list._id);
+              }}
+            />
+          </div>
+          <ul
+            id={list._id}
+            className="scale-1 transition-transform grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-6"
+          >
             {list.cards.map((card, i) => (
               <li
                 key={i + card.id}

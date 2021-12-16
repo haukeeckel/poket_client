@@ -6,8 +6,9 @@ import { IdentificationIcon, MinusCircleIcon } from '@heroicons/react/solid';
 import { API_URL } from '../../config';
 import { UserContext } from '../../context/user.context';
 import LoadingComponent from '../Loading';
-import ScrollToTop from '../ScrollToTop';
-import ScrollToBottom from '../ScrollToBottom';
+import Divider from '../LandingPage/Dividers';
+import ScrollToTop from '../Utilities/ScrollToTop';
+import ScrollToBottom from '../Utilities/ScrollToBottom';
 
 export default function UserProfile({ handleEdit }) {
   const { user } = useContext(UserContext);
@@ -51,7 +52,9 @@ export default function UserProfile({ handleEdit }) {
     <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
       {lists.map((list, i) => (
         <>
-          <p>{list.title}</p>
+          <h3 className="mt-8 text-lg font-medium text-gray-500">
+            List: <strong className="text-gray-900 ml-4">{list.title}</strong>
+          </h3>
           <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-6 ">
             {list.cards.map((card, i) => (
               <li
@@ -127,6 +130,7 @@ export default function UserProfile({ handleEdit }) {
           </ul>
           <ScrollToTop />
           <ScrollToBottom />
+          <Divider />
         </>
       ))}
     </div>

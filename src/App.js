@@ -16,6 +16,7 @@ import LandingPage from './components/LandingPage/LandingPage';
 import UserProfile from './components/UserProfile/UserProfile';
 import CardDiscover from './components/Card/CardDiscover';
 import CardDetail from './components/Card/CardDetail';
+import SideCards from './components/Utilities/SideCards';
 
 function App() {
   const { setUser } = useContext(UserContext);
@@ -165,6 +166,7 @@ function App() {
           <Route path="/user" element={<UserProfile />} />
         </>
       </Routes>
+      <SideCards />
     </>
   );
 }

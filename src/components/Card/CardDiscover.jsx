@@ -6,11 +6,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/user.context';
 import { API_URL } from '../../config';
 import CardFilter from './CardFilter';
-import ScrollToTop from '../ScrollToTop';
-import ScrollToBottom from '../ScrollToBottom';
-import InfoBoxSuccess from '../InfoBoxSuccess';
-import InfoBoxWarning from '../InfoBoxWarning';
-import ModalList from '../ModalList';
+import ScrollToTop from '../Utilities/ScrollToTop';
+import ScrollToBottom from '../Utilities/ScrollToBottom';
+import InfoBoxSuccess from '../Notifications/InfoBoxSuccess';
+import InfoBoxWarning from '../Notifications/InfoBoxWarning';
+import ModalList from '../Notifications/ModalList';
 
 const types = [
   'Colorless',
@@ -255,7 +255,7 @@ function CardDiscover() {
               <li
                 ref={lastCardRef}
                 key={i + card.id}
-                className="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-gray-200"
+                className="mb-8 col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-gray-200"
               >
                 <div className="h-96">
                   <div className="flex-1 flex flex-col p-6">
@@ -338,7 +338,7 @@ function CardDiscover() {
             return (
               <li
                 key={i + card.id}
-                className="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-gray-200"
+                className="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-gray-200 mb-8"
               >
                 <div className="h-96">
                   <div className="flex-1 flex flex-col p-6">

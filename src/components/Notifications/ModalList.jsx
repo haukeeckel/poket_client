@@ -2,8 +2,8 @@ import axios from 'axios';
 import { Fragment, useState, useContext, useEffect } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 
-import { UserContext } from '../context/user.context';
-import { API_URL } from '../config';
+import { UserContext } from '../../context/user.context';
+import { API_URL } from '../../config';
 
 export default function ModalList({
   card,

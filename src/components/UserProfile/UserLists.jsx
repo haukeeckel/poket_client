@@ -51,7 +51,7 @@ export default function UserProfile({ handleEdit }) {
     <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
       {lists.map((list, i) => (
         <>
-          <p>List {i}</p>
+          <p>{list.title}</p>
           <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-6 ">
             {list.cards.map((card, i) => (
               <li

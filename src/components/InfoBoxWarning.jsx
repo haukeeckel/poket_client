@@ -47,10 +47,10 @@ export default function InfoBoxSuccess({ info }) {
                   </div>
                   <div className="ml-3 w-0 flex-1 pt-0.5">
                     <p className="text-sm font-medium text-gray-900">
-                      Already saved!
+                      {info[0].messageTitle}
                     </p>
                     <p className="mt-1 text-sm text-gray-500">
-                      List {info[0].list} already includes {info[0].card}.
+                      {info[0].message}
                     </p>
                   </div>
                   <img

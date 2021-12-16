@@ -34,6 +34,8 @@ function CardDiscover() {
   // const [supertypes, setSupertypes] = useState([]);
   // const [types, setTypes] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
+  const [addModal, setAddModal] = useState(false);
+  const [addCard, setAddCard] = useState([]);
   const [notifications, setNotifications] = useState([]);
   const { loading, error, cards, hasMore } = CardFilter(query, pageNumber);
 
@@ -125,7 +127,7 @@ function CardDiscover() {
     setPageNumber(1);
   };
 
-  const handleAddCard = async (card) => {
+  const handleShowModal = async (card) => {
     if (!user) {
       navigate('/signin');
     } else {
@@ -141,15 +143,35 @@ function CardDiscover() {
         flavorText: card.flavorText,
         images: card.images,
       };
+      setAddCard(addCard);
+      setAddModal(true);
+    }
+  };
 
-      let { data } = await axios.post(`${API_URL}/card/add/`, addCard, {
-        withCredentials: true,
-      });
+  const handleAddCard = async (card, list, userLists) => {
+    setNotifications([]);
+    if (!list) {
+      let cardNote = {
+        image: card.images.small,
+        success: false,
+        messageTitle: 'List empty',
+        message: `Please enter a List Name to add ${card.name}`,
+      };
+      setNotifications([cardNote]);
+    } else {
+      let { data } = await axios.post(
+        `${API_URL}/card/add/`,
+        { saveToList: list, saveCard: card },
+        {
+          withCredentials: true,
+        }
+      );
 
       setNotifications([]);
       let cardNote = [data];
       setNotifications(cardNote);
       setUser(data.user);
+      setAddModal(false);
     }
   };
 
@@ -296,7 +318,7 @@ function CardDiscover() {
                     </Link>
                     <div
                       onClick={() => {
-                        handleAddCard(card);
+                        handleShowModal(card);
                       }}
                       className="-ml-px w-0 flex-1 flex cursor-pointer"
                     >
@@ -376,7 +398,7 @@ function CardDiscover() {
                     </Link>
                     <div
                       onClick={() => {
-                        handleAddCard(card);
+                        handleShowModal(card);
                       }}
                       className="-ml-px w-0 flex-1 flex cursor-pointer"
                     >
@@ -404,7 +426,14 @@ function CardDiscover() {
       ) : (
         <></>
       )}
-      <ModalList />
+      {addModal && (
+        <ModalList
+          card={addCard}
+          addModal={addModal}
+          setAddModal={setAddModal}
+          handleAddCard={handleAddCard}
+        />
+      )}
     </div>
   );
 }

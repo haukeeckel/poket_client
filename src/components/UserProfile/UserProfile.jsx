@@ -32,7 +32,7 @@ export default function UserProfile({ handleEdit }) {
       const { data } = await axios.get(`${API_URL}/user/`, {
         withCredentials: true,
       });
-      console.log(data);
+
       setUser(data);
     })();
   }, []);
@@ -101,30 +101,6 @@ export default function UserProfile({ handleEdit }) {
                     <span className="mx-4">
                       Trainer: <strong>{statistics.trainer}</strong>
                     </span>
-                  </dd>
-                </div>
-
-                <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                  <dt className="text-sm font-medium text-gray-500">
-                    Last added card
-                  </dt>
-                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    <div className="w-full flex sm:col-span-2 flex-wrap">
-                      {user.lastAdded.map((card, i) => (
-                        <Link
-                          key={i + card.name}
-                          to={`/cards/${card.id}`}
-                          className="w-full sm:w-1/3 flex flex-col justify-center"
-                        >
-                          <p className="text-center font-medium">{card.name}</p>
-                          <img
-                            className="mx-5 my-2 mb-10 sm:my-5"
-                            src={card.images.large}
-                            alt="card.name"
-                          />
-                        </Link>
-                      ))}
-                    </div>
                   </dd>
                 </div>
               </dl>

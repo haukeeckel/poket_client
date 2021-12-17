@@ -33,7 +33,7 @@ function UserMenuS(props) {
             <div className="flex-shrink-0">
               <img
                 className="h-10 w-10 rounded-full"
-                src="https://avatars.dicebear.com/api/identicon/your-custom-seedddasd.svg"
+                src="/images/Group 5.png"
                 alt=""
               />
             </div>

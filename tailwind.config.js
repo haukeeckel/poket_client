@@ -4,6 +4,8 @@ module.exports = {
     extend: {
       animation: {
         'error-shake': 'error-shake 0.3s linear',
+        'list-shrink': 'list-shrink 0.3s linear',
+        'list-grow': 'list-grow 0.3s linear',
       },
       keyframes: {
         'error-shake': {
@@ -13,6 +15,9 @@ module.exports = {
           '75%': { transform: 'translateX(-5%)' },
           '100%': { transform: 'translateX(0)' },
         },
+      },
+      transitionProperty: {
+        height: 'height',
       },
     },
   },

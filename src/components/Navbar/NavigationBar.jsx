@@ -1,5 +1,11 @@
+import { useEffect, useContext } from 'react';
+import { useLocation } from 'react-router-dom';
+
 import { Disclosure } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
+
+import { MainLocationContext } from '../../context/mainLocation.context';
+import { UserLocationContext } from '../../context/userLocation.context';
 
 import Logos from './Logos';
 import MainMenuML from './MainMenuML';
@@ -7,8 +13,24 @@ import UserMenuML from './UserMenuML';
 import MainMenuS from './MainMenuS';
 import UserMenuS from './UserMenuS';
 
-export default function NavigationBar(props) {
-  const { logout } = props;
+export default function NavigationBar({ logout }) {
+  const { mainLocation } = useContext(MainLocationContext);
+  const { userLocation } = useContext(UserLocationContext);
+
+  const { pathname } = useLocation();
+
+  const handleLocation = () => {
+    mainLocation.forEach((elem) =>
+      pathname === elem.to ? (elem.current = true) : (elem.current = false)
+    );
+    userLocation.forEach((elem) =>
+      pathname === elem.to ? (elem.current = true) : (elem.current = false)
+    );
+  };
+
+  useEffect(() => {
+    handleLocation();
+  });
 
   return (
     <Disclosure as="nav" className="bg-white shadow">

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { API_KEY } from '../../config';
 
-export default function CardFilter(query, pageNumber) {
+export default function CardFilter(query, pageNumber, sort) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [cards, setCards] = useState([]);
@@ -10,18 +10,24 @@ export default function CardFilter(query, pageNumber) {
 
   useEffect(() => {
     setCards([]);
-  }, [query]);
+  }, [query, sort]);
 
   useEffect(() => {
     (async () => {
       setLoading(true);
       setError(false);
+
       try {
         let cancel;
         let res = await axios({
           method: 'GET',
           url: 'https://api.pokemontcg.io/v2/cards?',
-          params: { q: `${query}`, page: pageNumber, pageSize: 8 },
+          params: {
+            q: `${query}`,
+            orderBy: sort,
+            page: pageNumber,
+            pageSize: 8,
+          },
           headers: { Authorization: API_KEY },
           cancelToken: new axios.CancelToken((c) => (cancel = c)),
         });
@@ -43,7 +49,7 @@ export default function CardFilter(query, pageNumber) {
         setError(err);
       }
     })();
-  }, [query, pageNumber]);
+  }, [query, pageNumber, sort]);
 
   return { loading, error, cards, hasMore };
 }

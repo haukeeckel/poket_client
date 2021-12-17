@@ -59,7 +59,7 @@ export default function UserProfileMenu() {
           Hello {user.username}
         </span>
       </div>
-      <div className="mx-auto hidden sm:block max-w-7xl mt-16">
+      <div className="mx-auto hidden sm:block max-w-5xl mt-16">
         <div className="flex justify-between border-b border-gray-200">
           <span className="inline-flex items-center px-1 font-medium text-xl">
             Hello {user.username}

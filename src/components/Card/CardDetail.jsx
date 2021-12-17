@@ -39,7 +39,7 @@ export default function CardDetail() {
               {card.name}
             </h3>
             <p className="mt-1 max-w-2xl text-sm text-gray-500">
-              National Pokedex: #{card.nationalPokedexNumbers[0]} <br /> Rarity:{' '}
+              National Pokedex: #{card.nationalPokedexNumbers} <br /> Rarity:{' '}
               {card.rarity}
             </p>
           </div>
@@ -102,33 +102,6 @@ export default function CardDetail() {
                     </tbody>
                   </table>
                 </dd>
-              </div>
-              <div className="bg-white px-4 py-5 lg:grid lg:grid-cols-3 lg:gap-4 lg:px-6">
-                <dt className="text-sm font-medium text-gray-500">Actions</dt>
-                <dd className="mt-1 text-sm text-gray-900 lg:mt-0 lg:col-span-2">
-                  <button
-                    onClick={() => {
-                      navigate(-1);
-                    }}
-                    type="button"
-                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  >
-                    Go Back
-                  </button>
-                  <button
-                    onClick={() => {
-                      navigate(-1);
-                    }}
-                    type="button"
-                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  >
-                    Go Back
-                  </button>
-                </dd>
-              </div>
-              <div className="bg-gray-50 px-4 py-5 lg:grid lg:grid-cols-3 lg:gap-4 lg:px-6">
-                <dt className="text-sm font-medium text-gray-500">About</dt>
-                <dd className="mt-1 text-sm text-gray-900 lg:mt-0 lg:col-span-2"></dd>
               </div>
             </dl>
           </div>

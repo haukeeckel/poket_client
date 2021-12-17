@@ -28,17 +28,6 @@ function UserMenuML(props) {
 
   return (
     <>
-      {/* BUTTON */}
-      <>
-        {/* <button
-                  type="button"
-                  className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button> */}
-      </>
-
       {/* Profile dropdown */}
       {user ? (
         <Menu as="div" className="ml-3 relative">
@@ -51,7 +40,7 @@ function UserMenuML(props) {
               <span className="sr-only">Open user menu</span>
               <img
                 className="h-8 w-8 rounded-full"
-                src="https://avatars.dicebear.com/api/identicon/your-custom-seedddasd.svg"
+                src="/images/Group 5.png"
                 alt=""
               />
             </Menu.Button>

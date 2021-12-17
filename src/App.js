@@ -1,12 +1,10 @@
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 
 import { API_URL } from './config';
 import { UserContext } from './context/user.context';
 import { ErrorContext } from './context/error.context';
-import { MainLocationContext } from './context/mainLocation.context';
-import { UserLocationContext } from './context/userLocation.context';
 
 import NavigationBar from './components/Navbar/NavigationBar';
 import SignIn from './components/Auth/SignIn';
@@ -21,27 +19,10 @@ import SideCards from './components/Utilities/SideCards';
 function App() {
   const { setUser } = useContext(UserContext);
   const { setErrors } = useContext(ErrorContext);
-  const { mainLocation } = useContext(MainLocationContext);
-  const { userLocation } = useContext(UserLocationContext);
 
   const [getUser, setGettingUser] = useState(true);
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await axios.get(`${API_URL}/user`, {
-          withCredentials: true,
-        });
-
-        setGettingUser(false);
-        setUser(data);
-      } catch (err) {
-        setGettingUser(false);
-      }
-    })();
-  }, []);
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -59,7 +40,7 @@ function App() {
       });
       setUser(response.data);
       setErrors(null);
-      navigate('/');
+      navigate('/user');
     } catch (err) {
       setErrors(err.response.data);
     }
@@ -67,7 +48,6 @@ function App() {
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-    console.log(e);
 
     try {
       let user = {
@@ -80,7 +60,7 @@ function App() {
       });
       setUser(response.data);
       setErrors(null);
-      navigate('/');
+      navigate('/user');
     } catch (err) {
       setErrors(err.response.data);
     }
@@ -108,7 +88,7 @@ function App() {
       let response = await axios.patch(`${API_URL}/user/edit`, user, {
         withCredentials: true,
       });
-      console.log(response);
+
       setUser(response.data);
       setErrors(null);
       navigate('/user');
@@ -117,15 +97,22 @@ function App() {
     }
   };
 
-  const { pathname } = useLocation();
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await axios.get(`${API_URL}/user`, {
+          withCredentials: true,
+        });
+
+        setGettingUser(false);
+        setUser(data);
+      } catch (err) {
+        setGettingUser(false);
+      }
+    })();
+  }, []);
 
   if (getUser) {
-    mainLocation.forEach((elem) =>
-      pathname === elem.to ? (elem.current = true) : (elem.current = false)
-    );
-    userLocation.forEach((elem) =>
-      pathname === elem.to ? (elem.current = true) : (elem.current = false)
-    );
     return <LoadingComponent />;
   }
 

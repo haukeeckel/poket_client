@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState, useRef, useCallback, useContext } from 'react';
+import { useState, useRef, useCallback, useContext, useEffect } from 'react';
 import { IdentificationIcon, PlusCircleIcon } from '@heroicons/react/solid';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -31,13 +31,18 @@ const supertypes = ['Energy', 'Pokémon', 'Trainer'];
 function CardDiscover() {
   const { user, setUser } = useContext(UserContext);
   const [query, setQuery] = useState('');
+  const [sort, setSort] = useState('name');
   // const [supertypes, setSupertypes] = useState([]);
   // const [types, setTypes] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [addModal, setAddModal] = useState(false);
   const [addCard, setAddCard] = useState([]);
   const [notifications, setNotifications] = useState([]);
-  const { loading, error, cards, hasMore } = CardFilter(query, pageNumber);
+  const { loading, error, cards, hasMore } = CardFilter(
+    query,
+    pageNumber,
+    sort
+  );
 
   const navigate = useNavigate();
 
@@ -108,7 +113,7 @@ function CardDiscover() {
     let filterTypes = myForm.types.options;
     let selectedTypes = [];
 
-    for (var i = 0, l = filterTypes.length; i < l; i++) {
+    for (var i = 0; i < filterTypes.length; i++) {
       if (filterTypes[i].selected) {
         selectedTypes.push(filterTypes[i].value);
       }
@@ -121,8 +126,16 @@ function CardDiscover() {
       filterTypes = `types:${selectedTypes.join(' OR types:')}`;
       myFilter.push(filterTypes);
     }
-    // console.log(myFilter.join(' '));
 
+    let filterSort = myForm.sortInput.options;
+    let mySort;
+    for (var i = 0; i < filterSort.length; i++) {
+      if (filterSort[i].selected) {
+        mySort = filterSort[i].value;
+      }
+    }
+    // console.log(myFilter.join(' '));
+    setSort(mySort);
     setQuery(myFilter.join(' '));
     setPageNumber(1);
   };
@@ -199,16 +212,16 @@ function CardDiscover() {
 
         <label
           htmlFor="supertypes"
-          className="font-semibold text-xl text-gray-900 mt-2 mb-4 sm:w-1/3 w-full mx-10 text-center md:order-3"
+          className="font-semibold text-xl text-gray-900 mt-9 sm:w-1/3 w-full mx-10 text-center md:text-right md:order-5"
         >
-          Supertype
+          Supertype:
         </label>
         <select
           id="supertypes"
           aria-describedby="description"
           name="supertypes"
           type="text"
-          className="sm:w-1/3 mx-10 hadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md md:order-5"
+          className="sm:w-5/12 mt-8 hadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md md:order-6"
         >
           <option value="">All</option>
           {supertypes.map((supertype, i) => (
@@ -219,9 +232,9 @@ function CardDiscover() {
         </select>
         <label
           htmlFor="types"
-          className="font-semibold text-xl text-gray-900 mt-2 mb-4 sm:w-1/3 w-full mx-10 text-center md:order-3"
+          className="font-semibold text-xl text-gray-900 mt-8 sm:w-1/3 w-full mx-10 text-center md:text-right md:order-7"
         >
-          Typ
+          Type:
         </label>
         <select
           id="types"
@@ -229,7 +242,7 @@ function CardDiscover() {
           name="types"
           type="text"
           multiple
-          className="sm:w-1/3 mx-10 hadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md md:order-6"
+          className="sm:w-5/12 mt-6 hadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md md:order-8"
         >
           {types.map((type, i) => (
             <option
@@ -245,6 +258,26 @@ function CardDiscover() {
               {type}
             </option>
           ))}
+        </select>
+        <label
+          htmlFor="sortInput"
+          className="font-semibold text-xl text-gray-900 mt-8 sm:w-1/3 w-full mx-10 text-center md:text-right md:order-3"
+        >
+          Sort by:
+        </label>
+        <select
+          id="sortInput"
+          aria-describedby="description"
+          name="sortInput"
+          type="text"
+          className="sm:w-5/12 mt-6 hadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md md:order-4"
+        >
+          <option value="name">Name ascending</option>
+          <option value="-name">Name descending</option>
+          <option value="set.releaseDate,set.number">Release ascending</option>
+          <option value="-set.releaseDate,-set.number">
+            Release descending
+          </option>
         </select>
       </form>
 

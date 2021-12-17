@@ -68,18 +68,15 @@ export default function UserProfile({ handleEdit }) {
   };
 
   const handleDisplay = (list) => {
-    console.log(list.toString());
     const listGrid = document.getElementById(list.toString());
 
     if (listGrid.classList.contains('scale-1')) {
-      listGrid.classList.remove('scale-1');
+      listGrid.classList.remove('scale-1', 'h-auto');
       listGrid.classList.add('scale-0', 'h-0');
     } else {
       listGrid.classList.remove('scale-0', 'h-0');
-      listGrid.classList.add('scale-1');
+      listGrid.classList.add('scale-1', 'h-auto');
     }
-
-    console.log(listGrid);
   };
 
   if (!user) {
@@ -114,7 +111,7 @@ export default function UserProfile({ handleEdit }) {
           </div>
           <ul
             id={list._id}
-            className="scale-1 transition-transform grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-6"
+            className="scale-1 transition-all h-auto grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-6"
           >
             {list.cards.map((card, i) => (
               <li

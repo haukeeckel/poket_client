@@ -15,6 +15,7 @@ import UserProfile from './components/UserProfile/UserProfile';
 import CardDiscover from './components/Card/CardDiscover';
 import CardDetail from './components/Card/CardDetail';
 import SideCards from './components/Utilities/SideCards';
+import Footer from './components/Navbar/Footer';
 
 function App() {
   const { setUser } = useContext(UserContext);
@@ -154,6 +155,7 @@ function App() {
         </>
       </Routes>
       <SideCards />
+      <Footer />
     </>
   );
 }
